@@ -4,7 +4,9 @@
   "description": "Traverse JSON Schema passing each schema object to callback",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "eslint": "eslint index.js spec.js",
+    "test-spec": "mocha spec -R spec",
+    "test": "nyc npm run test-spec"
   },
   "repository": {
     "type": "git",
@@ -20,5 +22,22 @@
   "bugs": {
     "url": "https://github.com/epoberezkin/json-schema-traverse/issues"
   },
-  "homepage": "https://github.com/epoberezkin/json-schema-traverse#readme"
+  "homepage": "https://github.com/epoberezkin/json-schema-traverse#readme",
+  "devDependencies": {
+    "coveralls": "^2.13.1",
+    "eslint": "^3.19.0",
+    "mocha": "^3.4.2",
+    "nyc": "^11.0.2",
+    "pre-commit": "^1.2.2"
+  },
+  "nyc": {
+    "exclude": [
+      "**/spec/**",
+      "node_modules"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ]
+  }
 }
