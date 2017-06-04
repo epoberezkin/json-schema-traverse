@@ -1,0 +1,24 @@
+{
+  "name": "json-schema-traverse",
+  "version": "0.0.1",
+  "description": "Traverse JSON Schema passing each schema object to callback",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/epoberezkin/json-schema-traverse.git"
+  },
+  "keywords": [
+    "JSON-Schema",
+    "traverse",
+    "iterate"
+  ],
+  "author": "Evgeny Poberezkin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/epoberezkin/json-schema-traverse/issues"
+  },
+  "homepage": "https://github.com/epoberezkin/json-schema-traverse#readme"
+}
