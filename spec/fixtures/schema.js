@@ -40,7 +40,8 @@ var schema = {
   dependencies: {
     foo: subschema('dependencies_foo'),
     bar: subschema('dependencies_bar'),
-  }
+  },
+  required: ['foo', 'bar']
 };
 
 
