@@ -36,16 +36,14 @@ function _traverse(schema, cb, jsonPtr, rootSchema, parentKeyword, parentSchema,
       var sch = schema[key];
       if (Array.isArray(sch)) {
         if (key in traverse.arrayKeywords) {
-          for (var i=0; i<sch.length; i++) {
+          for (var i=0; i<sch.length; i++)
             _traverse(sch[i], cb, jsonPtr + '/' + key + '/' + i, rootSchema, key, schema, i);
-          }          
         }
       } else if (key in traverse.keywords) {
         _traverse(sch, cb, jsonPtr + '/' + key, rootSchema, key, schema);
       } else if (key in traverse.propsKeywords && sch && typeof sch == 'object') {
-        for (var prop in sch) {
+        for (var prop in sch)
           _traverse(sch[prop], cb, jsonPtr + '/' + key + '/' + escapeJsonPtr(prop), rootSchema, key, schema, prop);
-        }
       }
     }
   }

@@ -4,9 +4,9 @@
   "description": "Traverse JSON Schema passing each schema object to callback",
   "main": "index.js",
   "scripts": {
-    "eslint": "eslint index.js spec.js",
+    "eslint": "eslint index.js spec",
     "test-spec": "mocha spec -R spec",
-    "test": "nyc npm run test-spec"
+    "test": "npm run eslint && nyc npm run test-spec"
   },
   "repository": {
     "type": "git",

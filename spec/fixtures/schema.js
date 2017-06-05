@@ -77,14 +77,14 @@ module.exports = {
     .concat([
       [schema.allOf[2], '/allOf/2', schema, 'allOf', schema, 2],
       [schema.allOf[2].items[0], '/allOf/2/items/0', schema, 'items', schema.allOf[2], 0],
-      [schema.allOf[2].items[0].properties['foo_items_0'], '/allOf/2/items/0/properties/foo_items_0', schema, 'properties', schema.allOf[2].items[0], 'foo_items_0'],
-      [schema.allOf[2].items[0].properties['bar_items_0'], '/allOf/2/items/0/properties/bar_items_0', schema, 'properties', schema.allOf[2].items[0], 'bar_items_0'],
+      [schema.allOf[2].items[0].properties.foo_items_0, '/allOf/2/items/0/properties/foo_items_0', schema, 'properties', schema.allOf[2].items[0], 'foo_items_0'],
+      [schema.allOf[2].items[0].properties.bar_items_0, '/allOf/2/items/0/properties/bar_items_0', schema, 'properties', schema.allOf[2].items[0], 'bar_items_0'],
       [schema.allOf[2].items[0].anyOf[0], '/allOf/2/items/0/anyOf/0', schema, 'anyOf', schema.allOf[2].items[0], 0],
       [schema.allOf[2].items[0].anyOf[1], '/allOf/2/items/0/anyOf/1', schema, 'anyOf', schema.allOf[2].items[0], 1],
 
       [schema.allOf[2].items[1], '/allOf/2/items/1', schema, 'items', schema.allOf[2], 1],
-      [schema.allOf[2].items[1].properties['foo_items_1'], '/allOf/2/items/1/properties/foo_items_1', schema, 'properties', schema.allOf[2].items[1], 'foo_items_1'],
-      [schema.allOf[2].items[1].properties['bar_items_1'], '/allOf/2/items/1/properties/bar_items_1', schema, 'properties', schema.allOf[2].items[1], 'bar_items_1'],
+      [schema.allOf[2].items[1].properties.foo_items_1, '/allOf/2/items/1/properties/foo_items_1', schema, 'properties', schema.allOf[2].items[1], 'foo_items_1'],
+      [schema.allOf[2].items[1].properties.bar_items_1, '/allOf/2/items/1/properties/bar_items_1', schema, 'properties', schema.allOf[2].items[1], 'bar_items_1'],
       [schema.allOf[2].items[1].anyOf[0], '/allOf/2/items/1/anyOf/0', schema, 'anyOf', schema.allOf[2].items[1], 0],
       [schema.allOf[2].items[1].anyOf[1], '/allOf/2/items/1/anyOf/1', schema, 'anyOf', schema.allOf[2].items[1], 1]
     ])
@@ -121,5 +121,5 @@ function expectedCallsChild(keyword, i) {
     [schema[keyword][i].properties[`bar_${keyword}_${i}`], `/${keyword}/${i}/properties/bar_${keyword}_${i}`, schema, 'properties', schema[keyword][i], `bar_${keyword}_${i}`],
     [schema[keyword][i].anyOf[0], `/${keyword}/${i}/anyOf/0`, schema, 'anyOf', schema[keyword][i], 0],
     [schema[keyword][i].anyOf[1], `/${keyword}/${i}/anyOf/1`, schema, 'anyOf', schema[keyword][i], 1]
-  ]
+  ];
 }
