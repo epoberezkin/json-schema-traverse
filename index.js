@@ -44,9 +44,14 @@ function _traverse(schema, cb, jsonPtr, rootSchema, parentKeyword, parentSchema,
         _traverse(sch, cb, jsonPtr + '/' + key, rootSchema, key, schema);
       } else if (key in traverse.propsKeywords && sch && typeof sch == 'object') {
         for (var prop in sch) {
-          _traverse(sch[prop], cb, jsonPtr + '/' + key + '/' + escape(prop), rootSchema, key, schema, prop);
+          _traverse(sch[prop], cb, jsonPtr + '/' + key + '/' + escapeJsonPtr(prop), rootSchema, key, schema, prop);
         }
       }
     }
   }
+}
+
+
+function escapeJsonPtr(str) {
+  return str.replace(/~/g, '~0').replace(/\//g, '~1');
 }
