@@ -38,6 +38,7 @@ Callback is passed these parameters:
 - _schema_: the current schema object
 - _JSON pointer_: from the root schema to the current schema object
 - _root schema_: the schema passed to `traverse` object
+- _parent JSON pointer_: from the root schema to the parent schema object (see below)
 - _parent keyword_: the keyword inside which this schema appears (e.g. `properties`, `anyOf`, etc.)
 - _parent schema_: not necessarily parent object/array; in the example above the parent schema for `{type: 'string'}` is the root schema
 - _index/property_: index or property name in the array/object containing multiple schemas; in the example above for `{type: 'string'}` the property name is `'foo'`
