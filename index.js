@@ -29,21 +29,21 @@ traverse.propsKeywords = {
 };
 
 
-function _traverse(schema, cb, jsonPtr, rootSchema, parentKeyword, parentSchema, keyIndex) {
+function _traverse(schema, cb, jsonPtr, rootSchema, parentJsonPtr, parentKeyword, parentSchema, keyIndex) {
   if (schema && typeof schema == 'object' && !Array.isArray(schema)) {
-    cb(schema, jsonPtr, rootSchema, parentKeyword, parentSchema, keyIndex);
+    cb(schema, jsonPtr, rootSchema, parentJsonPtr, parentKeyword, parentSchema, keyIndex);
     for (var key in schema) {
       var sch = schema[key];
       if (Array.isArray(sch)) {
         if (key in traverse.arrayKeywords) {
           for (var i=0; i<sch.length; i++)
-            _traverse(sch[i], cb, jsonPtr + '/' + key + '/' + i, rootSchema, key, schema, i);
+            _traverse(sch[i], cb, jsonPtr + '/' + key + '/' + i, rootSchema, jsonPtr, key, schema, i);
         }
       } else if (key in traverse.keywords) {
-        _traverse(sch, cb, jsonPtr + '/' + key, rootSchema, key, schema);
+        _traverse(sch, cb, jsonPtr + '/' + key, rootSchema, jsonPtr, key, schema);
       } else if (key in traverse.propsKeywords && sch && typeof sch == 'object') {
         for (var prop in sch)
-          _traverse(sch[prop], cb, jsonPtr + '/' + key + '/' + escapeJsonPtr(prop), rootSchema, key, schema, prop);
+          _traverse(sch[prop], cb, jsonPtr + '/' + key + '/' + escapeJsonPtr(prop), rootSchema, jsonPtr, key, schema, prop);
       }
     }
   }
