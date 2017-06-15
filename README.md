@@ -22,7 +22,7 @@ const schema = {
     foo: {type: 'string'},
     bar: {type: 'integer'}
   }
-}
+};
 
 traverse(schema, cb);
 // cb is called 3 times with:
@@ -42,6 +42,26 @@ Callback is passed these parameters:
 - _parent keyword_: the keyword inside which this schema appears (e.g. `properties`, `anyOf`, etc.)
 - _parent schema_: not necessarily parent object/array; in the example above the parent schema for `{type: 'string'}` is the root schema
 - _index/property_: index or property name in the array/object containing multiple schemas; in the example above for `{type: 'string'}` the property name is `'foo'`
+
+
+## Traverse objects in all unknown keywords
+
+```javascript
+const traverse = require('json-schema-traverse');
+const schema = {
+  mySchema: {
+    minimum: 1,
+    maximum: 2
+  }
+};
+
+traverse(schema, {allKeys: true}, cb);
+// cb is called 2 times with:
+// 1. root schema
+// 2. mySchema
+```
+
+Without option `allKeys: true` callback will be called only with root schema.
 
 
 ## License
