@@ -115,17 +115,13 @@ describe('json-schema-traverse', function() {
   });
 
   describe('pre and post', function() {
-    var schema;
-
-    beforeEach(function() {
-      schema = {
-        type: 'object',
-        properties: {
-          name: {type: 'string'},
-          age: {type: 'number'}
-        }
-      };
-    });
+    var schema = {
+      type: 'object',
+      properties: {
+        name: {type: 'string'},
+        age: {type: 'number'}
+      }
+    };
 
     it('should traverse schema in pre-order', function() {
       traverse(schema, {cb: {pre}});
