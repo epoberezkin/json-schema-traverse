@@ -14,7 +14,7 @@ describe('json-schema-traverse', function() {
     var schema = require('./fixtures/schema').schema;
     var expectedCalls = require('./fixtures/schema').expectedCalls;
 
-    traverse(schema, {pre: callback});
+    traverse(schema, {cb: callback});
     assert.deepStrictEqual(calls, expectedCalls);
   });
 
@@ -53,7 +53,7 @@ describe('json-schema-traverse', function() {
         [schema.someObject, '/someObject', schema, '', 'someObject', schema, undefined]
       ];
 
-      traverse(schema, {allKeys: true}, callback);
+      traverse(schema, {allKeys: true, cb: callback});
       assert.deepStrictEqual(calls, expectedCalls);
     });
 
@@ -64,7 +64,7 @@ describe('json-schema-traverse', function() {
         [schema, '', schema, undefined, undefined, undefined, undefined]
       ];
 
-      traverse(schema, {allKeys: false}, callback);
+      traverse(schema, {allKeys: false, cb: callback});
       assert.deepStrictEqual(calls, expectedCalls);
     });
 
@@ -75,7 +75,7 @@ describe('json-schema-traverse', function() {
         [schema, '', schema, undefined, undefined, undefined, undefined]
       ];
 
-      traverse(schema, callback);
+      traverse(schema, {cb: callback});
       assert.deepStrictEqual(calls, expectedCalls);
     });
 
@@ -109,7 +109,7 @@ describe('json-schema-traverse', function() {
         [schema2.properties.larger, '/properties/larger', schema2, '', 'properties', schema2, 'larger'],
       ];
 
-      traverse(schema2, {allKeys: true}, callback);
+      traverse(schema2, {allKeys: true, cb: callback});
       assert.deepStrictEqual(calls, expectedCalls);
     });
   });
@@ -141,17 +141,17 @@ describe('json-schema-traverse', function() {
     }
 
     it('should traverse schema in pre-order', function() {
-      traverse(schema, {pre});
+      traverse(schema, {cb: {pre}});
       assert(schema.preTraversed, 'Should travese the schema');
     });
 
     it('should traverse schema in post-order', function() {
-      traverse(schema, {post});
+      traverse(schema, {cb: {post}});
       assert(schema.postTraversed, 'Should travese the schema');
     });
 
     it('should traverse schema in pre- and post-order at the same time', function() {
-      traverse(schema, {pre, post});
+      traverse(schema, {cb: {pre, post}});
       assert(schema.preTraversed && schema.postTraversed, 'Should travese the schema');
     });
   });

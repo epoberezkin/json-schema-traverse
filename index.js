@@ -7,8 +7,9 @@ var traverse = module.exports = function (schema, opts, cb) {
     opts = {};
   }
 
-  var pre = opts.pre || cb || function() {};
-  var post = opts.post || function() {};
+  cb = opts.cb || cb;
+  var pre = (typeof cb == 'function') ? cb : cb.pre || function() {};
+  var post = cb.post || function() {};
 
   _traverse(opts, pre, post, schema, '', schema);
 };
