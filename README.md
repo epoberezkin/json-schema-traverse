@@ -31,7 +31,9 @@ traverse(schema, cb);
 // 3. {type: 'integer'}
 ```
 
-Callback function is called for each schema object (not including draft-06 boolean schemas), including the root schema. Schema references ($ref) are not resolved, they are passed as is.
+Callback function is called for each schema object (not including draft-06 boolean schemas), including the root schema, in pre-order traversal. Schema references ($ref) are not resolved, they are passed as is.  Alternatively, you can call `traverse(schema, {pre, post}`, and
+then `pre` will be called before traversing child elements, and `post` will be called
+after all child elements have been traversed.
 
 Callback is passed these parameters:
 
