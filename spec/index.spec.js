@@ -121,42 +121,55 @@ describe('json-schema-traverse', function() {
       schema = {
         type: 'object',
         properties: {
-          name: {type: 'string'}
+          name: {type: 'string'},
+          age: {type: 'number'}
         }
       };
     });
 
-    function pre(child) {
-      child.preTraversed = true;
-      if(child.type === 'string')
-        // In the child object.
-        assert(schema.preTraversed, 'Should traverse parents before children');
-    }
-
-    function post(child) {
-      child.postTraversed = true;
-      if(child.type === 'string')
-        // In the child object.
-        assert(!schema.postTraversed, 'Should traverse children before parents');
-    }
-
     it('should traverse schema in pre-order', function() {
       traverse(schema, {cb: {pre}});
-      assert(schema.preTraversed, 'Should travese the schema');
+      var expectedCalls = [
+        ['pre', schema, '', schema, undefined, undefined, undefined, undefined],
+        ['pre', schema.properties.name, '/properties/name', schema, '', 'properties', schema, 'name'],
+        ['pre', schema.properties.age, '/properties/age', schema, '', 'properties', schema, 'age'],
+      ];
+      assert.deepStrictEqual(calls, expectedCalls);
     });
 
     it('should traverse schema in post-order', function() {
       traverse(schema, {cb: {post}});
-      assert(schema.postTraversed, 'Should travese the schema');
+      var expectedCalls = [
+        ['post', schema.properties.name, '/properties/name', schema, '', 'properties', schema, 'name'],
+        ['post', schema.properties.age, '/properties/age', schema, '', 'properties', schema, 'age'],
+        ['post', schema, '', schema, undefined, undefined, undefined, undefined],
+      ];
+      assert.deepStrictEqual(calls, expectedCalls);
     });
 
     it('should traverse schema in pre- and post-order at the same time', function() {
       traverse(schema, {cb: {pre, post}});
-      assert(schema.preTraversed && schema.postTraversed, 'Should travese the schema');
+      var expectedCalls = [
+        ['pre', schema, '', schema, undefined, undefined, undefined, undefined],
+        ['pre', schema.properties.name, '/properties/name', schema, '', 'properties', schema, 'name'],
+        ['post', schema.properties.name, '/properties/name', schema, '', 'properties', schema, 'name'],
+        ['pre', schema.properties.age, '/properties/age', schema, '', 'properties', schema, 'age'],
+        ['post', schema.properties.age, '/properties/age', schema, '', 'properties', schema, 'age'],
+        ['post', schema, '', schema, undefined, undefined, undefined, undefined],
+      ];
+      assert.deepStrictEqual(calls, expectedCalls);
     });
   });
 
   function callback() {
     calls.push(Array.prototype.slice.call(arguments));
+  }
+
+  function pre() {
+    calls.push(['pre'].concat(Array.prototype.slice.call(arguments)));
+  }
+
+  function post() {
+    calls.push(['post'].concat(Array.prototype.slice.call(arguments)));
   }
 });
