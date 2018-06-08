@@ -39,6 +39,7 @@ traverse.propsKeywords = {
 };
 
 traverse.skipKeywords = {
+  default: true,
   enum: true,
   const: true,
   required: true,
