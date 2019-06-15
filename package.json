@@ -23,6 +23,10 @@
     "url": "https://github.com/epoberezkin/json-schema-traverse/issues"
   },
   "homepage": "https://github.com/epoberezkin/json-schema-traverse#readme",
+  "files": [
+    "index.js",
+    "README.md"
+  ],
   "devDependencies": {
     "coveralls": "^2.13.1",
     "eslint": "^3.19.0",
