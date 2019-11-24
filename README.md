@@ -78,6 +78,11 @@ traverse(schema, {allKeys: true, cb});
 Without option `allKeys: true` callback will be called only with root schema.
 
 
+## Enterprise support
+
+json-schema-traverse package is a part of [Tidelift enterprise subscription]((https://tidelift.com/subscription/pkg/npm-json-schema-traverse?utm_source=npm-json-schema-traverse&utm_medium=referral&utm_campaign=enterprise&utm_term=repo)) - it provides a centralised commercial support to open-source software users, in addition to the support provided by software maintainers.
+
+
 ## License
 
 [MIT](https://github.com/epoberezkin/json-schema-traverse/blob/master/LICENSE)
