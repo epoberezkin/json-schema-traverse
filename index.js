@@ -22,6 +22,7 @@ traverse.keywords = {
   additionalProperties: true,
   propertyNames: true,
   not: true,
+  if: true,
   then: true,
   else: true
 };
