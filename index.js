@@ -21,7 +21,10 @@ traverse.keywords = {
   contains: true,
   additionalProperties: true,
   propertyNames: true,
-  not: true
+  not: true,
+  if: true,
+  then: true,
+  else: true
 };
 
 traverse.arrayKeywords = {
