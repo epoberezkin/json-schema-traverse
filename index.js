@@ -14,6 +14,7 @@ var traverse = module.exports = function (schema, opts, cb) {
   _traverse(opts, pre, post, schema, '', schema);
 };
 
+
 traverse.keywords = {
   additionalItems: true,
   items: true,
