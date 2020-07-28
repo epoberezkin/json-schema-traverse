@@ -14,7 +14,6 @@ var traverse = module.exports = function (schema, opts, cb) {
   _traverse(opts, pre, post, schema, '', schema);
 };
 
-
 traverse.keywords = {
   additionalItems: true,
   items: true,
@@ -64,6 +63,9 @@ traverse.skipKeywords = {
 
 
 function _traverse(opts, pre, post, schema, jsonPtr, rootSchema, parentJsonPtr, parentKeyword, parentSchema, keyIndex) {
+  if (traverse.tester && !traverse.tester(schema)) {
+    return;
+  }
   if (schema && typeof schema == 'object' && !Array.isArray(schema)) {
     pre(schema, jsonPtr, rootSchema, parentJsonPtr, parentKeyword, parentSchema, keyIndex);
     for (var key in schema) {
