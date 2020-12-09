@@ -35,6 +35,7 @@ traverse.arrayKeywords = {
 };
 
 traverse.propsKeywords = {
+  $defs: true,
   definitions: true,
   properties: true,
   patternProperties: true,
