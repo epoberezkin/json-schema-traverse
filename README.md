@@ -1,9 +1,9 @@
 # json-schema-traverse
 Traverse JSON Schema passing each schema object to callback
 
-[![Build Status](https://travis-ci.org/epoberezkin/json-schema-traverse.svg?branch=master)](https://travis-ci.org/epoberezkin/json-schema-traverse)
-[![npm version](https://badge.fury.io/js/json-schema-traverse.svg)](https://www.npmjs.com/package/json-schema-traverse)
-[![Coverage Status](https://coveralls.io/repos/github/epoberezkin/json-schema-traverse/badge.svg?branch=master)](https://coveralls.io/github/epoberezkin/json-schema-traverse?branch=master)
+[![build](https://github.com/epoberezkin/json-schema-traverse/workflows/build/badge.svg)](https://github.com/epoberezkin/json-schema-traverse/actions?query=workflow%3Abuild)
+[![npm](https://img.shields.io/npm/v/json-schema-traverse)](https://www.npmjs.com/package/json-schema-traverse)
+[![coverage](https://coveralls.io/repos/github/epoberezkin/json-schema-traverse/badge.svg?branch=master)](https://coveralls.io/github/epoberezkin/json-schema-traverse?branch=master)
 
 
 ## Install
