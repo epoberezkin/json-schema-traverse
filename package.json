@@ -4,6 +4,7 @@
   "description": "Traverse JSON Schema passing each schema object to callback",
   "main": "index.js",
   "types": "index.d.ts",
+  "files":[],
   "scripts": {
     "eslint": "eslint index.js spec",
     "test-spec": "mocha spec -R spec",
