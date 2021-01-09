@@ -1,4 +1,10 @@
+// @ts-check
 'use strict';
+
+/** @typedef {import("./").ArrayKeywords} ArrayKeywords */
+/** @typedef {import("./").Keywords} Keywords */
+/** @typedef {import("./").PropsKeywords} PropsKeywords */
+/** @typedef {import("./").SkipKeywords} SkipKeywords */
 
 var traverse = module.exports = function (schema, opts, cb) {
   // Legacy support for v0.3.1 and earlier.
@@ -6,7 +12,6 @@ var traverse = module.exports = function (schema, opts, cb) {
     cb = opts;
     opts = {};
   }
-
   cb = opts.cb || cb;
   var pre = (typeof cb == 'function') ? cb : cb.pre || function() {};
   var post = cb.post || function() {};
@@ -14,7 +19,7 @@ var traverse = module.exports = function (schema, opts, cb) {
   _traverse(opts, pre, post, schema, '', schema);
 };
 
-
+/** @type {Record<Keywords, true>} */
 traverse.keywords = {
   additionalItems: true,
   items: true,
@@ -27,6 +32,7 @@ traverse.keywords = {
   else: true
 };
 
+/** @type {Record<ArrayKeywords, true>} */
 traverse.arrayKeywords = {
   items: true,
   allOf: true,
@@ -34,6 +40,7 @@ traverse.arrayKeywords = {
   oneOf: true
 };
 
+/** @type {Record<PropsKeywords, true>} */
 traverse.propsKeywords = {
   $defs: true,
   definitions: true,
@@ -42,6 +49,7 @@ traverse.propsKeywords = {
   dependencies: true
 };
 
+/** @type {Record<SkipKeywords, true>} */
 traverse.skipKeywords = {
   default: true,
   enum: true,
