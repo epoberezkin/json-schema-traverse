@@ -114,6 +114,46 @@ describe('json-schema-traverse', function() {
     });
   });
 
+  describe('boolean schemas', function() {
+    it('should NOT call callback for boolean schemas', function() {
+      var schema = {
+        properties: {foo: true, bar: false},
+        items: [true, {type: 'string'}],
+        not: false
+      };
+
+      var expectedCalls = [
+        [schema, '', schema, undefined, undefined, undefined, undefined],
+        [schema.items[1], '/items/1', schema, '', 'items', schema, 1]
+      ];
+
+      traverse(schema, {cb: callback});
+      assert.deepStrictEqual(calls, expectedCalls);
+    });
+  });
+
+  describe('JSON pointer escaping', function() {
+    it('should escape "~" and "/" in property names', function() {
+      var schema = {
+        properties: {
+          'a/b': {type: 'string'},
+          'c~d': {type: 'number'},
+          'e~/f': {type: 'boolean'}
+        }
+      };
+
+      var expectedCalls = [
+        [schema, '', schema, undefined, undefined, undefined, undefined],
+        [schema.properties['a/b'], '/properties/a~1b', schema, '', 'properties', schema, 'a/b'],
+        [schema.properties['c~d'], '/properties/c~0d', schema, '', 'properties', schema, 'c~d'],
+        [schema.properties['e~/f'], '/properties/e~0~1f', schema, '', 'properties', schema, 'e~/f']
+      ];
+
+      traverse(schema, {cb: callback});
+      assert.deepStrictEqual(calls, expectedCalls);
+    });
+  });
+
   describe('pre and post', function() {
     var schema = {
       type: 'object',
