@@ -132,6 +132,39 @@ describe('json-schema-traverse', function() {
     });
   });
 
+  describe('keywords matching Object.prototype properties', function() {
+    it('should NOT treat inherited property names as keywords', function() {
+      var schema = {
+        toString: {foo: {type: 'string'}},
+        constructor: {type: 'number'},
+        hasOwnProperty: [{type: 'boolean'}]
+      };
+
+      var expectedCalls = [
+        [schema, '', schema, undefined, undefined, undefined, undefined]
+      ];
+
+      traverse(schema, {cb: callback});
+      assert.deepStrictEqual(calls, expectedCalls);
+    });
+
+    it('should traverse inherited property names with allKeys: true option', function() {
+      var schema = {
+        toString: {type: 'string'},
+        valueOf: {type: 'number'}
+      };
+
+      var expectedCalls = [
+        [schema, '', schema, undefined, undefined, undefined, undefined],
+        [schema.toString, '/toString', schema, '', 'toString', schema, undefined],
+        [schema.valueOf, '/valueOf', schema, '', 'valueOf', schema, undefined]
+      ];
+
+      traverse(schema, {allKeys: true, cb: callback});
+      assert.deepStrictEqual(calls, expectedCalls);
+    });
+  });
+
   describe('JSON pointer escaping', function() {
     it('should escape "~" and "/" in property names', function() {
       var schema = {
@@ -150,6 +183,22 @@ describe('json-schema-traverse', function() {
       ];
 
       traverse(schema, {cb: callback});
+      assert.deepStrictEqual(calls, expectedCalls);
+    });
+
+    it('should escape "~" and "/" in keywords with allKeys: true option', function() {
+      var schema = {
+        'a/b': {type: 'string'},
+        'c~d': {type: 'number'}
+      };
+
+      var expectedCalls = [
+        [schema, '', schema, undefined, undefined, undefined, undefined],
+        [schema['a/b'], '/a~1b', schema, '', 'a/b', schema, undefined],
+        [schema['c~d'], '/c~0d', schema, '', 'c~d', schema, undefined]
+      ];
+
+      traverse(schema, {allKeys: true, cb: callback});
       assert.deepStrictEqual(calls, expectedCalls);
     });
   });

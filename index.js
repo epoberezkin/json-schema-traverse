@@ -64,6 +64,9 @@ traverse.skipKeywords = {
 };
 
 
+var hasOwn = Object.prototype.hasOwnProperty;
+
+
 function _traverse(opts, pre, post, schema, jsonPtr, rootSchema, parentJsonPtr, parentKeyword, parentSchema, keyIndex) {
   if (schema && typeof schema == 'object' && !Array.isArray(schema)) {
     pre(schema, jsonPtr, rootSchema, parentJsonPtr, parentKeyword, parentSchema, keyIndex);
@@ -71,15 +74,15 @@ function _traverse(opts, pre, post, schema, jsonPtr, rootSchema, parentJsonPtr, 
       var sch = schema[key];
       if (!sch || typeof sch != 'object') continue;
       if (Array.isArray(sch)) {
-        if (key in traverse.arrayKeywords) {
+        if (hasOwn.call(traverse.arrayKeywords, key)) {
           for (var i=0; i<sch.length; i++)
             _traverse(opts, pre, post, sch[i], jsonPtr + '/' + key + '/' + i, rootSchema, jsonPtr, key, schema, i);
         }
-      } else if (key in traverse.propsKeywords) {
+      } else if (hasOwn.call(traverse.propsKeywords, key)) {
         for (var prop in sch)
           _traverse(opts, pre, post, sch[prop], jsonPtr + '/' + key + '/' + escapeJsonPtr(prop), rootSchema, jsonPtr, key, schema, prop);
-      } else if (key in traverse.keywords || (opts.allKeys && !(key in traverse.skipKeywords))) {
-        _traverse(opts, pre, post, sch, jsonPtr + '/' + key, rootSchema, jsonPtr, key, schema);
+      } else if (hasOwn.call(traverse.keywords, key) || (opts.allKeys && !hasOwn.call(traverse.skipKeywords, key))) {
+        _traverse(opts, pre, post, sch, jsonPtr + '/' + escapeJsonPtr(key), rootSchema, jsonPtr, key, schema);
       }
     }
     post(schema, jsonPtr, rootSchema, parentJsonPtr, parentKeyword, parentSchema, keyIndex);
