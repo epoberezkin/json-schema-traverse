@@ -69,16 +69,15 @@ function _traverse(opts, pre, post, schema, jsonPtr, rootSchema, parentJsonPtr, 
     pre(schema, jsonPtr, rootSchema, parentJsonPtr, parentKeyword, parentSchema, keyIndex);
     for (var key in schema) {
       var sch = schema[key];
+      if (!sch || typeof sch != 'object') continue;
       if (Array.isArray(sch)) {
         if (key in traverse.arrayKeywords) {
           for (var i=0; i<sch.length; i++)
             _traverse(opts, pre, post, sch[i], jsonPtr + '/' + key + '/' + i, rootSchema, jsonPtr, key, schema, i);
         }
       } else if (key in traverse.propsKeywords) {
-        if (sch && typeof sch == 'object') {
-          for (var prop in sch)
-            _traverse(opts, pre, post, sch[prop], jsonPtr + '/' + key + '/' + escapeJsonPtr(prop), rootSchema, jsonPtr, key, schema, prop);
-        }
+        for (var prop in sch)
+          _traverse(opts, pre, post, sch[prop], jsonPtr + '/' + key + '/' + escapeJsonPtr(prop), rootSchema, jsonPtr, key, schema, prop);
       } else if (key in traverse.keywords || (opts.allKeys && !(key in traverse.skipKeywords))) {
         _traverse(opts, pre, post, sch, jsonPtr + '/' + key, rootSchema, jsonPtr, key, schema);
       }
@@ -89,5 +88,6 @@ function _traverse(opts, pre, post, schema, jsonPtr, rootSchema, parentJsonPtr, 
 
 
 function escapeJsonPtr(str) {
+  if (str.indexOf('~') == -1 && str.indexOf('/') == -1) return str;
   return str.replace(/~/g, '~0').replace(/\//g, '~1');
 }
